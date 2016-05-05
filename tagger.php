@@ -488,8 +488,8 @@ class modules_tagger {
 		$newsql = preg_replace('/`([^`]+)` ?= ?\'\$[^\']+\'/', '`$1` is not null', $newsql);
 		$newsql .= ' group by `'.$labelCol.'` limit 50';
 		//echo $newsql;
-		$res = mysql_query($newsql, df_db());
-		if ( !$res ) throw new Exception(mysql_error(df_db()));
+		$res = xf_db_query($newsql, df_db());
+		if ( !$res ) throw new Exception(xf_db_error(df_db()));
 		$jt = Dataface_JavascriptTool::getInstance();
 		$jt->addPath(dirname(__FILE__).'/js', $this->getBaseURL().'/js');
 		
@@ -502,7 +502,7 @@ class modules_tagger {
 		echo '<div class="xf-tagcloud">';
 		echo '<h2>'.htmlspecialchars($field['widget']['label']).'</h2>';
 		echo '<ul>';
-		while ($row = mysql_fetch_row($res) ){
+		while ($row = xf_db_fetch_row($res) ){
 			$link = df_absolute_url(DATAFACE_SITE_HREF.'?-action=list&-table='.$field['tablename'].'&'
 				.urlencode($field['relationship'].'/'.$labelCol).'='.urlencode('='.$row[1]));
 			
