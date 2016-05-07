@@ -90,6 +90,7 @@
 				out.push(str);
 			});
 			$(field).val(out.join("\n"));
+			$(field).trigger('change');
 		}
 		
 		
