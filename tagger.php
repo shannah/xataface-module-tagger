@@ -235,11 +235,14 @@ class modules_tagger {
 				if ( PEAR::isError($domainTable) ){
 					return $domainTable;
 				}
+				if (is_array($val)) {
+				    $val = implode("\n", $val);
+				}
 				if ( trim($val) ){
-                                    $tval = explode("\n", $val);
-                                } else {
-                                    $tval = array();
-                                }
+                    $tval = explode("\n", $val);
+                } else {
+                    $tval = array();
+                }
 				
 				// Load existing records in the relationship
 				$texisting =& $record->getRelatedRecordObjects($tfield['relationship'], 'all');
